@@ -148,7 +148,9 @@ const paginateProducts = async(req) => {
             limit:6,
             sort:{ date:'desc' }
         };
+        
         const products = await Product.aggregatePaginate(aggQuery,options);
+        
         return products;
     } catch(error) {
         throw error
