@@ -2,7 +2,6 @@ import React from 'react';
 import DashboardLayout from 'hoc/dashboardLayout'
 
 
-
 const UserDashboard = ({users}) => {
     return(
         <DashboardLayout title="Overview">

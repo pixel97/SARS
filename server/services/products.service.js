@@ -2,7 +2,7 @@ const { Product } = require('../models/product');
 const { ApiError } = require('../middleware/apiError');
 const httpStatus = require('http-status');
 const mongoose = require('mongoose');
-
+const axios = require('axios');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
@@ -151,6 +151,73 @@ const paginateProducts = async(req) => {
         
         const products = await Product.aggregatePaginate(aggQuery,options);
         
+
+const config = {
+  method: 'GET',
+  url: 'https://amazon23.p.rapidapi.com/product-search',
+  params: {query: req.body.keywords+'guitar', country: 'US'},
+  headers: {
+    'X-RapidAPI-Key': 'c278db4300msh1102d5c3dbbd40cp1feadajsnf09514945b81',
+    'X-RapidAPI-Host': 'amazon23.p.rapidapi.com'
+  }
+};
+console.log("Hi");
+axios.request(options).then(function (response) {
+	console.log(response.data);
+}).catch(function (error) {
+	console.error(error);
+});
+
+    //     if (!req.query.myjobs) {
+    //         const config = {
+    //           headers: {
+    //             Authorization: `Basic ${process.env.REED_API_KEY}`,
+    //             "Accept-Encoding": "application/json",
+    //           },
+    //         };
+    //         let ids = await Job.find({}, { externalJobId: true, _id: false });
+    //         let existingExternalJobIds = [];
+    //         ids.forEach((id) => {
+    //           if (id.externalJobId) {
+    //             existingExternalJobIds.push(id.externalJobId);
+    //           }
+    //         });
+    //         await axios
+    //           .get(
+    //             `https://www.reed.co.uk/api/1.0/search?keywords=${
+    //               req.query.q || "software"
+    //             }&resultsToTake=${1}`,
+    //             config   )
+    //           .then((resp) => {
+    //             let newJobs = [];
+    //             resp.data.results?.forEach((newJob) => {
+    //               if (!existingExternalJobIds.includes(String(newJob.jobId))) {
+    //                 console.log(newJob);
+    //                 let jobToAdd = new Job({
+    //                   userId: new mongoose.Types.ObjectId(
+    //                     "56cb91bdc3464f14678934ca"
+    //                   ),
+    //                   title: newJob.jobTitle,
+    //                   maxApplicants: 100,
+    //                   maxPositions: 30,
+    //                   dateOfPosting: parseDate(newJob.date),
+    //                   deadline: parseDate(newJob.expirationDate),
+    //                   skillsets: [],
+    //                   description: newJob.jobDescription,
+    //                   jobType: newJob.fullTime ? "Full Time" : "Part Time",
+    //                   externalJobId: newJob.jobId,
+    // duration: 0,
+    //                   salary: newJob.maximumSalary || 0,
+    //                   rating: 0,
+    //                 });
+    //                 newJobs.push(jobToAdd);
+    //               }
+    //             });
+    //             Job.insertMany(newJobs).then((response) => {
+    //               let newPosts = posts.concat(response);
+    //               res.json(newPosts);
+    //             });
+    
         return products;
     } catch(error) {
         throw error

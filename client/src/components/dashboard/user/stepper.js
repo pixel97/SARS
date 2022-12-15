@@ -18,7 +18,6 @@ import {
 } from '@material-ui/core';
 
 
-
 const EmailStepper = ({users}) => {
     const [loading, setLoading] = useState(false);
     const [emailModal, setEmailModal] = useState(false);

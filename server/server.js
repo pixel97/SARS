@@ -18,9 +18,10 @@ const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
 mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex:true,
+     useCreateIndex:true,
     useFindAndModify: false
-});
+},()=>{console.log("succesfully connected")}
+);
 
 
 

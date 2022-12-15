@@ -6,7 +6,7 @@ import DashboardLayout from 'hoc/dashboardLayout';
 import { useFormik } from 'formik';
 import { errorHelper } from 'utils/tools';
 import Loader from 'utils/loader'
-import { validation } from './formValues';
+import { validation } from './formValues'; 
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,7 +67,7 @@ const AddProduct = (props) => {
         formik.setFieldValue('images',picArray)
     }
 
-    
+
     useEffect(()=>{
         if(notifications && notifications.success){
             props.history.push('/dashboard/admin/admin_products');
